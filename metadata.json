@@ -1,0 +1,35 @@
+{
+  "name": "fheinle-ddns",
+  "version": "0.1.0",
+  "author": "Florian Heinle <launchpad@planet-tiax.de>",
+  "summary": "Install ipv6 dyndns client and/or server",
+  "license": "MIT",
+  "source": "https://github.com/fheinle/ddnsv6",
+  "issues_url": "https://github.com/fheinle/ddnsv6/issues",
+  "dependencies": [
+
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ],
+  "pdk-version": "1.4.1",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.4.1-0-g52adbbb"
+}
