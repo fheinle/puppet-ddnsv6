@@ -18,11 +18,12 @@ class ddns (
     }
   }
 
-  vcsrepo { "${install_directory}/app":
+  vcsrepo { $install_directory:
     ensure   => present,
     provider => 'git',
     source   => $install_repo,
     revision => $install_version,
+    user     => $ddns_user,
     owner    => $ddns_user,
   }
 

@@ -13,9 +13,10 @@ class ddns::server (
 
   file { "ddns_config_server_${facts['fqdn']}":
     ensure  => present,
-    path    => "${::ddns::install_directory}/app/ddnsv6.conf.yaml",
+    path    => "${::ddns::install_directory}/ddnsv6.conf.yaml",
     owner   => $::ddns::ddns_user,
     mode    => '0640',
     content => template('ddns/ddnsv6-server.conf.yaml.erb'),
+    require => Vcsrepo["${::ddns::install_directory}"]
   }
 }

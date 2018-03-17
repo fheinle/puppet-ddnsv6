@@ -9,7 +9,7 @@ class ddns::client (
 ) {
   file { "ddns_config_client_${facts['fqdn']}":
     ensure  => present,
-    path    => "${::ddns::install_directory}/app/ddnsv6.conf.yaml",
+    path    => "${::ddns::install_directory}/ddnsv6.conf.yaml",
     owner   => $::ddns::ddns_user,
     mode    => '0640',
     content => template('ddns/ddnsv6-client.conf.yaml.erb'),
