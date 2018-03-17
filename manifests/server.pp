@@ -18,14 +18,4 @@ class ddns::server (
     mode    => '0640',
     content => template('ddns/ddnsv6-server.conf.yaml.erb'),
   }
-
-  cron {"ddns_worker_cronjob_${facts['fqdn']}":
-    command  => "/usr/bin/ruby/${::ddns::install_directory}/app/worker.rb",
-    user     => $::ddns::ddns_user,
-    minute   => '*/12',
-    hour     => '*',
-    monthday => '*',
-    month    => '*',
-    weekday  => '*',
-  }
 }

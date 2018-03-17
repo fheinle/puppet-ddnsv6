@@ -3,6 +3,9 @@ class ddns::client (
   String  $ddns_server         = undef,
   Boolean $ddns_server_ssl     = true,
   Integer $ddns_server_port    = 443,
+  String  $client_username     = 'ddns',
+  String  $client_password     = undef,
+  String  $ipv6_prefix         = '2001',
 ) {
   file { "ddns_config_client_${facts['fqdn']}":
     ensure  => present,
@@ -10,16 +13,18 @@ class ddns::client (
     owner   => $::ddns::ddns_user,
     mode    => '0640',
     content => template('ddns/ddnsv6-client.conf.yaml.erb'),
+    require => Vcsrepo[$::ddns::install_directory]
   }
 
-  cron { "ddns_client_cronjob_${facts['fqdn']}":
-    command     => "/usr/bin/ruby/${::ddns::install_directory}/app/client.rb",
-    user        => $::ddns::ddns_user,
-    minute      => '*/5',
+  cron { "ddns_cron_${facts['fqdn']}":
+    ensure      => present,
+    command     => "${::ddns::install_directory}/client.rb",
+    environment => "DDNS_IFACE=${facts['networking']['primary']}",
     hour        => '*',
+    minute      => '*/5',
     monthday    => '*',
     month       => '*',
     weekday     => '*',
-    environment => "DDNS_IFACE=${facts['networking.primary']}",
+    user        => $::ddns::ddns_user,
   }
 }
