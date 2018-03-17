@@ -1,0 +1,11 @@
+basedir: "<%= scope['::ddns::install_directory'] %>/domains"
+cloudflare_email: <%= @cloudflare_user %>
+cloudflare_key: <%= @cloudflare_password %>
+domains:
+<%- @domain_whitelist.each do |domain| -%>
+ - <%= domain %>
+<%- end -%>
+whitelist:
+<%- @host_whitelist.each do |whitelisted| -%>
+  - <%= whitelisted %>
+<%- end -%>
