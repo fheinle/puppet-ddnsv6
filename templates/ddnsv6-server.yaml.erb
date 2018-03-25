@@ -1,6 +1,7 @@
 basedir: "<%= scope['::ddns::install_directory'] %>/domains"
 cloudflare_email: <%= @cloudflare_user %>
 cloudflare_key: <%= @cloudflare_password %>
+prefix: <%= @ipv6_prefix %>
 domains:
 <%- @domain_whitelist.each do |domain| -%>
  - <%= domain %>

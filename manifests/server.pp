@@ -3,6 +3,7 @@ class ddns::server (
   Array   $domain_whitelist    = undef,
   String  $cloudflare_user     = undef,
   String  $cloudflare_password = undef,
+  String  $ipv6_prefix         = '2001',
 ) {
   # install gem dependencies for the server portion
   $server_dependencies = {
