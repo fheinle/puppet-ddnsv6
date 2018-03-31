@@ -18,6 +18,17 @@ class ddns::server (
     owner   => $::ddns::ddns_user,
     mode    => '0640',
     content => template('ddns/ddnsv6-server.conf.yaml.erb'),
-    require => Vcsrepo["${::ddns::install_directory}"]
+    require => Vcsrepo[$::ddns::install_directory]
+  }
+
+  cron { "ddns_worker_cron_${facts['fqdn']}":
+    ensure   => present,
+    command  => "${::ddns::install_directory}/worker.rb",
+    hour     => '*',
+    minute   => '*/10',
+    monthday => '*',
+    month    => '*',
+    weekday  => '*',
+    user     => $::ddns::ddns_user,
   }
 }
