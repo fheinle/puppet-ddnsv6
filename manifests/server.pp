@@ -31,4 +31,15 @@ class ddns::server (
     weekday  => '*',
     user     => $::ddns::ddns_user,
   }
+
+  concat { "ddns::whitelist_${facts['fqdn']}":
+    ensure         => present,
+    ensure_newline => true,
+    owner          => $::ddns::ddns_user,
+    mode           => '0640',
+    path           => "${::ddns::install_directory}/whitelist.txt",
+    require        => Vcsrepo["${::ddns::install_directory}"]
+  }
+
+  Concat::Fragment <<| tag == "ddns::whitelist_${facts['fqdn']}" |>>
 }

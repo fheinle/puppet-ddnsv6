@@ -27,4 +27,10 @@ class ddns::client (
     weekday     => '*',
     user        => $::ddns::ddns_user,
   }
+
+  @@concat::fragment { "ddns::whitelist_entry::${facts['fqdn']}":
+    target  => "ddns::whitelist_${ddns_server}",
+    content => $facts['fqdn'],
+    tag     => "ddns::whitelist_${ddns_server}"
+  }
 }
